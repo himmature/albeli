@@ -25,10 +25,15 @@ body {
     float: right;
   }
 }
+.title {
+
+}
 
 .image-upload {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  background-color: #918a8a;
+  padding: 5px;
 }
 
 #image-upload__div {
@@ -39,36 +44,62 @@ body {
   color: yellow;
 }
 
-#browse-button {
+.image-upload__div-control {
   padding: 5px;
   font-size: 1.5em;
   background-color: #fff;
   color: #000;
+  font-weight: 600;
   border-radius: 8px;
   box-shadow: 0 0 8px 0 #d4c2c2;
   &:hover {
-    transform: scale(1.2);
+    background-color: #000;
+    color: #fff;
     cursor: pointer;
   }
 }
 
+#submit {
+  display: none;
+}
+
 .canvas-container {
-  margin: 5px;
+  margin: 5%;
+  display: flex;
+}
+
+.canvas-container__controls {
+  display: none;
+  flex-direction: column;
+  padding: 5%;
+  button {
+    width: 100px;
+    height: 100px;
+    margin: 5px 0;
+    font-size: 5.5rem;
+    border-radius: 8px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  #move-left{
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+  #move-right{
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+  #move-up{
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+  #move-down{
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
 }
 
 #editorCanvas {
-  background-color: #f8f4f4;
-}
-
-// #imageContainer {
-//   img {
-//     width: 100%;
-//   }
-// }
-
-#debugContainer {
-  p {
-    margin: 0;
-    padding: 0;
-  }
+  background-color: transparent;
 }

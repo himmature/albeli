@@ -1,34 +1,29 @@
 import "../css/main.scss";
-
-const appViewHTML = `<h1>Photo Editor</h1>
-<form class='image-upload' action="#">
-    <div id='image-upload__div'>
-        <h3 for="fileSelector">Select an Image file to Upload</h3>
-        <input type="file" id="fileSelector" hidden/>
-        <button id='browse-button'>Browse</button>
-    </div>
-</form>
-
-<div class='canvas-container'>
-    <canvas id="editorCanvas" width="1440" height="960"></canvas>
-</div>`;
+import {main} from './templates/Index';
+import {Controls} from './Controls';
 
 const AppView = () => {
-  document.body.innerHTML = appViewHTML;
+  document.body.innerHTML = main;
 
-  // grab DOM elements inside index.html
   const fileSelector = document.getElementById("fileSelector");
   const editorCanvas = document.getElementById("editorCanvas");
   const imageUploadNode = document.getElementById("image-upload__div");
+  const browseNode = document.getElementById("browse")
+  const submitNode = document.getElementById("submit");
+  const scaleUpNode = document.getElementById("scale-up");
+  const scaleDownNode = document.getElementById("scale-down");
+  const moveLeftNode = document.getElementById("move-left");
+  const moveRightNode = document.getElementById("move-right");
+  const moveUpNode = document.getElementById("move-up");
+  const moveDownNode = document.getElementById("move-down");
 
-  document.getElementById("browse-button").addEventListener("click", () => {
+  browseNode.addEventListener("click", () => {
     fileSelector.click();
   });
   fileSelector.onchange = function (e) {
     const file = e.target.files[0];
-    console.log(file);
-    const fileNameNode = document.createElement("span");
-    fileNameNode.textContent = file.name;
+    const fileNameNode = document.createElement("p");
+    fileNameNode.textContent = `Uploaded File: ${file.name}`;
     fileNameNode.classList.add("file-name");
     imageUploadNode.append(fileNameNode);
     switch (file.type) {
@@ -37,34 +32,123 @@ const AppView = () => {
       case "image/gif":
         // read Image contents from file
         const reader = new FileReader();
+        reader.readAsDataURL(file);
         reader.onload = function (e) {
           // create HTMLImageElement holding image data
           const img = new Image();
           img.src = reader.result;
-
+          let width, height, ctx;
+          let imageX = 0;
+          let imageY = 0;
+          let canvasX = 0;
+          let canvasY = 0;
           img.onload = function () {
-            // grab some data from the image
-            const width = img.naturalWidth;
-            const height = img.naturalHeight;
-
-            // editorCanvas.width = 500;
-            // editorCanvas.height = (500 * height) / width;
-            const ctx = editorCanvas.getContext("2d");
+            editorCanvas.width = 600;
+            editorCanvas.height = 600;
+            ctx = editorCanvas.getContext("2d");
+            width = img.naturalWidth;
+            height = img.naturalHeight;
+            editorCanvas.style.backgroundColor = "grey";
             ctx.drawImage(
               img,
-              0,
-              0,
-              width,
-              height,
-              0,
-              0,
-              editorCanvas.width,
-              editorCanvas.height
+              imageX,
+              imageY
+              // width,
+              // height,
+              // canvasX,
+              // canvasY,
+              // editorCanvas.width,
+              // editorCanvas.height
             );
           };
           // do your magic here...
+          const controlsNode = document.querySelectorAll('.canvas-container__controls');
+          for(let node of controlsNode) {
+            node.style.display = "flex";
+          }
+          submitNode.style.display = "inline-block";
+          scaleUpNode.addEventListener('click', (ev) => {
+            width += 10;
+            height += 10;
+            ctx.drawImage(
+              img,
+              imageX,
+              imageY,
+              width,
+              height
+            );
+          })
+
+          scaleDownNode.addEventListener('click', (ev) => {
+            if(width > editorCanvas.width && height > editorCanvas.height) {
+              width -= 10;
+              height -= 10;
+            }
+            if(width > editorCanvas.width) {
+              width -= 10;
+            } else if(height > editorCanvas.height) {
+              height -= 10;
+            }
+            ctx.drawImage(
+              img,
+              imageX,
+              imageY,
+              width,
+              height
+            );
+          })
+
+          moveLeftNode.addEventListener('click', (ev) => {
+            let currentX = imageX + width;
+            if(currentX > editorCanvas.width) {
+              imageX -= 10;
+            }
+            ctx.drawImage(
+              img,
+              imageX,
+              imageY,
+              width,
+              height
+            );
+          })
+          moveRightNode.addEventListener('click', (ev) => {
+            if(imageX < 0) {
+              imageX += 10;
+            }
+            ctx.drawImage(
+              img,
+              imageX,
+              imageY,
+              width,
+              height
+            );
+          })
+          moveUpNode.addEventListener('click', (ev) => {
+            let currentY = imageY + height;
+            if(currentY > editorCanvas.height) {
+              imageY -= 10;
+            }
+            ctx.drawImage(
+              img,
+              imageX,
+              imageY,
+              width,
+              height
+            );
+          })
+          moveDownNode.addEventListener('click', (ev) => {
+            if(imageY < 0) {
+              imageY += 10;
+            }
+            ctx.drawImage(
+              img,
+              imageX,
+              imageY,
+              width,
+              height
+            );
+          })
         };
-        reader.readAsDataURL(file);
     }
   };
 };
