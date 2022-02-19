@@ -1,6 +1,6 @@
 import "../css/main.scss";
 import {main} from './templates/Index';
-import {Controls} from './Controls';
+import {Submit} from './models';
 
 const AppView = () => {
   document.body.innerHTML = main;
@@ -9,14 +9,14 @@ const AppView = () => {
   const editorCanvas = document.getElementById("editorCanvas");
   const imageUploadNode = document.getElementById("image-upload__div");
   const browseNode = document.getElementById("browse")
-  const submitNode = document.getElementById("submit");
   const scaleUpNode = document.getElementById("scale-up");
   const scaleDownNode = document.getElementById("scale-down");
   const moveLeftNode = document.getElementById("move-left");
   const moveRightNode = document.getElementById("move-right");
   const moveUpNode = document.getElementById("move-up");
   const moveDownNode = document.getElementById("move-down");
-
+  const submitNode = new Submit();
+  
   browseNode.addEventListener("click", () => {
     fileSelector.click();
   });
@@ -66,7 +66,10 @@ const AppView = () => {
           for(let node of controlsNode) {
             node.style.display = "flex";
           }
-          submitNode.style.display = "inline-block";
+          submitNode.submitButtonHandler(file.name, {
+            id: 1,
+            name: 'himanshu'
+          });
           scaleUpNode.addEventListener('click', (ev) => {
             width += 10;
             height += 10;

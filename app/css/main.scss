@@ -2,7 +2,7 @@ body {
   font-family: Helvetica, Verdana, sans-serif;
   line-height: 1.5em;
   height: 100%;
-  background-color: #000;
+  background-color: #407dd8;
   color: #fff;
 }
 
@@ -26,13 +26,12 @@ body {
   }
 }
 .title {
-
 }
 
 .image-upload {
   display: flex;
   justify-content: space-around;
-  background-color: #918a8a;
+  background-color: #44af47;
   padding: 5px;
 }
 
@@ -61,6 +60,9 @@ body {
 
 #submit {
   display: none;
+  border: 1px solid black;
+  padding: 8px;
+  text-decoration: none;
 }
 
 .canvas-container {
@@ -82,19 +84,19 @@ body {
       cursor: pointer;
     }
   }
-  #move-left{
+  #move-left {
     font-size: 1.5rem;
     font-weight: 800;
   }
-  #move-right{
+  #move-right {
     font-size: 1.5rem;
     font-weight: 800;
   }
-  #move-up{
+  #move-up {
     font-size: 1.5rem;
     font-weight: 800;
   }
-  #move-down{
+  #move-down {
     font-size: 1.5rem;
     font-weight: 800;
   }

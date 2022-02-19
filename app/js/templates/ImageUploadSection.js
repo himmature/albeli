@@ -3,5 +3,5 @@ export const imageUploadSection = `<div id='image-upload__div'>
   <input type="file" id="fileSelector" hidden/>
   <button class='image-upload__div-control' id='browse'>Browse</button>
   <button class='image-upload__div-control' id='import'>Import</button>
-  <button class='image-upload__div-control' id='submit'>Submit</button>
-</div>`
+  <a class='image-upload__div-control' id='submit'>Submit</a>
+</div>`;
