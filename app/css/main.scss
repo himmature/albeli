@@ -4,6 +4,7 @@ body {
   height: 100%;
   background-color: #407dd8;
   color: #fff;
+  margin: 0;
 }
 
 #imageContainer,
@@ -25,9 +26,14 @@ body {
     float: right;
   }
 }
-.title {
+h1 {
+  margin: 0;
 }
-
+.main-header {
+  padding: 2%;
+  height: 5vh;
+  background-color: #657993;
+}
 .image-upload {
   display: flex;
   justify-content: space-around;
